@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 import React, { useState } from "react";
@@ -10,16 +9,12 @@ import {
   PopoverContent,
   Button,
   HStack,
-  VStack,
   SimpleGrid,
   Box,
   Card,
   CardBody,
-  Heading,
-  Stack,
-  StackDivider,
-  CardHeader,
   Text,
+  Heading,
 } from "@chakra-ui/react";
 
 const App = () => {
@@ -265,7 +260,7 @@ const App = () => {
         </HStack>
       </Card>
       <Card align="center" p={4}>
-        Made with ♥ by Eldora
+        <Text>Made with ♥ by Eldora</Text>
       </Card>
     </SimpleGrid>
   );

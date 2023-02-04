@@ -15,9 +15,11 @@ import {
   CardBody,
   Text,
   Heading,
+  useColorMode,
 } from "@chakra-ui/react";
 
 const App = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const [color, setColor] = useState("#FAD02C");
   const [bgColor, setBgColor] = useState("#68BBE3");
   const [eyeColor, setEyeColor] = useState("#000000");
@@ -138,6 +140,9 @@ const App = () => {
           <HStack spacing={4}>
             <Heading size="md">Pixel Duck Maker</Heading>
             <Button onClick={handleRandomize}>Randomize</Button>
+            <Button onClick={toggleColorMode}>
+              Toggle {colorMode === "light" ? "Dark" : "Light"}
+            </Button>
           </HStack>
         </Box>
       </Card>

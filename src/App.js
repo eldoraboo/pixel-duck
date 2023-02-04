@@ -162,7 +162,7 @@ const App = () => {
           align="center"
           width="100%"
           minChildWidth="128px"
-          spacing="10px"
+          spacing="20px"
         >
           {posPerm.map((com, index) => (
             <Box>

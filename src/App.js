@@ -24,7 +24,7 @@ const App = () => {
   const [bgColor, setBgColor] = useState("#68BBE3");
   const [eyeColor, setEyeColor] = useState("#000000");
   const [beakColor, setBeakColor] = useState("#E7625F");
-  const colours = require("nice-color-palettes");
+  const colours = require("nice-color-palettes/1000");
 
   const handleRandomize = () => {
     const randomColours = colours[random(0, colours.length - 1)];

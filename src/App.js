@@ -20,14 +20,15 @@ import {
 } from "@chakra-ui/react";
 
 const App = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const [color, setColor] = useState("#FAD02C");
-  const [bgColor, setBgColor] = useState("#68BBE3");
-  const [eyeColor, setEyeColor] = useState("#000000");
-  const [beakColor, setBeakColor] = useState("#E7625F");
-  const [hatColor, setHatColor] = useState("#228B22");
   const colours = require("nice-color-palettes/1000");
-
+  const randomColour = colours[random(0, colours.length - 1)];
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [color, setColor] = useState(randomColour[0]);
+  const [bgColor, setBgColor] = useState(randomColour[1]);
+  const [eyeColor, setEyeColor] = useState(randomColour[2]);
+  const [beakColor, setBeakColor] = useState(randomColour[3]);
+  const [hatColor, setHatColor] = useState(randomColour[4]);
+  
   const handleRandomize = () => {
     const randomColours = colours[random(0, colours.length - 1)];
     setColor(randomColours[0]);

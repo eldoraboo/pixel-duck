@@ -85,7 +85,7 @@ const App = () => {
       <Card align="center" p={4}>
         <Box>
           <HStack spacing={4}>
-            <Heading size="md">Pixel Duck Maker</Heading>
+            <Heading size="md">Pixel Duck</Heading>
             <Button onClick={handleRandomize}>Randomize</Button>
             <Button onClick={toggleColorMode}>
               Toggle {colorMode === "light" ? "Dark" : "Light"}

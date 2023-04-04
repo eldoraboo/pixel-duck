@@ -19,6 +19,59 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function generatePermutations(variables, colors) {
+  const permutations = [];
+
+  function permute(arr, data) {
+    let i;
+    if (arr.length === 0) {
+      permutations.push(data);
+    } else {
+      for (i = 0; i < arr.length; i++) {
+        const curr = arr.slice();
+        const next = curr.splice(i, 1);
+        permute(curr, data.concat(next));
+      }
+    }
+  }
+
+  permute(colors, []);
+
+  const result = permutations.map((permutation) => {
+    return variables.reduce((obj, variable, index) => {
+      obj[variable] = permutation[index];
+      return obj;
+    }, {});
+  });
+
+  return result;
+}
+
+function replacePlaceholders(arr, placeholders, colors) {
+  const result = arr.map((obj) => {
+    const newObj = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const index = placeholders.indexOf(value);
+      newObj[key] = colors[index];
+    }
+    return newObj;
+  });
+  return result;
+}
+
+const variables = ["color", "bgColor", "eyeColor", "beakColor", "hatColor"];
+const place = ['a', 'b', 'c', 'd', 'e'];
+const posPerms = generatePermutations(variables, place);
+const posPerm = shuffleArray(posPerms);
+
 const App = () => {
   const colours = require("nice-color-palettes/1000");
   const randomColour = colours[random(0, colours.length - 1)];
@@ -38,52 +91,12 @@ const App = () => {
     setHatColor(randomColours[4]);
   };
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
-  function generatePermutations(variables, colors) {
-    const permutations = [];
-
-    function permute(arr, data) {
-      let i;
-      if (arr.length === 0) {
-        permutations.push(data);
-      } else {
-        for (i = 0; i < arr.length; i++) {
-          const curr = arr.slice();
-          const next = curr.splice(i, 1);
-          permute(curr, data.concat(next));
-        }
-      }
-    }
-
-    permute(colors, []);
-
-    const result = permutations.map((permutation) => {
-      return variables.reduce((obj, variable, index) => {
-        obj[variable] = permutation[index];
-        return obj;
-      }, {});
-    });
-
-    return result;
-  }
-
-  const variables = ['color', 'bgColor', 'eyeColor', 'beakColor', 'hatColor'];
   const colors = [color, bgColor, eyeColor, beakColor, hatColor];
-  const posPerms = generatePermutations(variables, colors);
-  const posPerm = shuffleArray(posPerms);
-
-  console.log(posPerm);
+  const posPermColors = replacePlaceholders(posPerm, place, colors);
 
   return (
     <SimpleGrid spacing={4} p={4}>
-      <Card align="center" p={4}>
+      <Card boxShadow="lg" align="center" p={4}>
         <Box>
           <HStack spacing={4}>
             <Heading size="md">Pixel Duck</Heading>
@@ -94,7 +107,7 @@ const App = () => {
           </HStack>
         </Box>
       </Card>
-      <Card align="center">
+      <Card boxShadow="lg" align="center">
         <CardBody>
           <Popover>
             <PopoverTrigger>
@@ -158,14 +171,14 @@ const App = () => {
           </Popover>
         </CardBody>
       </Card>
-      <Card align="center" p={4}>
+      <Card boxShadow="lg" align="center" p={4}>
         <SimpleGrid
           align="center"
           width="100%"
           minChildWidth="128px"
           spacing="20px"
         >
-          {posPerm.map((com, index) => (
+          {posPermColors.map((com, index) => (
             <Box>
               <svg
                 key={index}
@@ -251,7 +264,7 @@ const App = () => {
           ))}
         </SimpleGrid>
       </Card>
-      <Card align="center" p={4}>
+      <Card boxShadow='lg' align="center" p={4}>
         <Text>Made with ♥ by Eldora</Text>
         <Text>
           Colors from{" "}

@@ -89,6 +89,8 @@ const App = () => {
     setEyeColor(randomColours[2]);
     setBeakColor(randomColours[3]);
     setHatColor(randomColours[4]);
+    // eslint-disable-next-line
+    const posPerm = shuffleArray(posPerms);
   };
 
   const colors = [color, bgColor, eyeColor, beakColor, hatColor];

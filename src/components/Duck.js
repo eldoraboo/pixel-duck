@@ -7,15 +7,27 @@ import {
   Text,
   Heading,
   HStack,
+  VStack,
   Input,
+  Button,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Modal,
+  ModalOverlay,
+  useDisclosure,
+  Progress,
 } from "@chakra-ui/react";
 import eth from "../img/eth.svg";
 import CopySVGButton from "./SVGButton";
+import { useState, useEffect } from "react";
 
 const colorHash = (colors) => {
-    const concatenatedRGB = colors.map((color) => color.substring(1)).join("");
-    const hash = parseInt(concatenatedRGB, 16) % 10000;
-    return hash.toString().padStart(4, "0");
+  const concatenatedRGB = colors.map((color) => color.substring(1)).join("");
+  const hash = parseInt(concatenatedRGB, 16) % 10000;
+  return hash.toString().padStart(4, "0");
 };
 
 const Duck = ({ com, index }) => {
@@ -51,8 +63,48 @@ const Duck = ({ com, index }) => {
 
   const ducksvg = ReactDOMServer.renderToStaticMarkup(svgCode);
   const colorNumber = colorHash(Object.values(com));
-  const randomPrice = (Math.random()).toFixed(3);
-  const hash = `${colorNumber}_${com.bgColor}_${com.hatColor}_${com.color}_${com.eyeColor}_${com.beakColor}`;
+  const randomPrice = Math.random().toFixed(3);
+
+  const [hash, setHash] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    const newHash = `${colorHash(Object.values(com))}_${com.bgColor}_${
+      com.hatColor
+    }_${com.color}_${com.eyeColor}_${com.beakColor}`;
+    setHash(newHash);
+  }, [com]);
+
+  const randomStats = () => {
+    // define an array of stat names and colors
+    const stats = [
+      { name: "Speed", color: com.bgColor },
+      { name: "Attack", color: com.hatColor },
+      { name: "Defense", color: com.color },
+      { name: "Special", color: com.eyeColor },
+      { name: "Agility", color: com.beakColor },
+    ];
+
+    // generate a random level for each stat
+    const levels = stats.map((stat) => ({
+      name: stat.name,
+      level: Math.floor(Math.random() * 100) + 1,
+      color: stat.color,
+    }));
+
+    // render progress bars for each stat
+    return levels.map((stat) => (
+      <Box key={stat.name}>
+        <Text fontWeight="bold">{stat.name}</Text>
+        <Progress
+          value={stat.level}
+          colorScheme="gray"
+          bgColor={stat.color}
+          style={{ transform: "rotate(180deg)" }}
+        />
+      </Box>
+    ));
+  };
 
   return (
     <>
@@ -125,11 +177,7 @@ xmlns="http://www.w3.org/2000/svg"
           {/* <Image src={view} height="48px" width="48px"></Image> */}
         </Box>
       </Box>
-      <Heading
-        as="h2"
-        fontSize="22px"
-        mb={4}
-      >
+      <Heading as="h2" fontSize="22px" mb={4}>
         Duck #{colorNumber}
       </Heading>
       {/* <Text mb={6} fontSize="18px">
@@ -146,10 +194,63 @@ xmlns="http://www.w3.org/2000/svg"
           <Text fontWeight="bold">{randomPrice} PEET</Text>
         </Flex>
       </HStack>
-      <Divider borderColor="#2E405A" mt={6} mb={4} />
+      <Button onClick={onOpen} borderColor={com.color} variant="outline" mt={6}>
+        View Stats
+      </Button>
+      <Modal size="sm" isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Duck #{colorNumber}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Heading as="h3" size="lg" mb={4}>
+              Duck Stats
+            </Heading>
+            <HStack spacing={10}>
+              <VStack alignItems="left" mb={4} width="50%">
+                {randomStats()}
+              </VStack>
+              <Image
+                src={`data:image/svg+xml;base64,${btoa(ducksvg)}`}
+                borderRadius="8px"
+                marginBottom={6}
+                alt="NFT image"
+                zIndex="2"
+              ></Image>
+            </HStack>
+            <Divider mb={4} />
+            <Heading as="h3" size="lg" mb={4}>
+              Other Stats
+            </Heading>
+            <Box mb={4}>
+              <Box as="span" fontWeight="bold">
+                Price:{" "}
+                <HStack>
+                  <Image
+                    src={eth}
+                    marginRight="6px"
+                    height="18px"
+                    alt="ETH logo"
+                  ></Image>
+                  <Text fontWeight="bold">{randomPrice} PEET</Text>
+                </HStack>
+              </Box>
+              <Box as="span">{com.price}</Box>
+            </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button> */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Divider borderColor={com.color} mt={6} mb={4} />
       <Flex>
         <Text>
-          <Input defaultValue={hash} />
+          <Input focusBorderColor={com.color} defaultValue={hash} />
         </Text>
       </Flex>
     </>
@@ -157,4 +258,3 @@ xmlns="http://www.w3.org/2000/svg"
 };
 
 export default Duck;
-

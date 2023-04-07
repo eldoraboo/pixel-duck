@@ -7,7 +7,8 @@ import theme from "./theme";
 import reportWebVitals from "./reportWebVitals";
 // 1. import `ChakraProvider` component
 import { ChakraProvider } from "@chakra-ui/react";
-import "@fontsource/outfit/400.css";
+import "@fontsource/vt323";
+import "@fontsource/outfit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

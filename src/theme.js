@@ -12,8 +12,8 @@ const config = {
 // 3. extend the theme
 const theme = extendTheme({ config,
   fonts: {
-    heading: "Outfit, sans-serif",
-    body: "Outfit, sans-serif",
+    heading: "VT323, monospace",
+    body: "VT323, monospace",
   }, });
 
 export default theme;

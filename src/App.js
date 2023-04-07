@@ -179,7 +179,7 @@ const App = () => {
         align="center"
         width="100%"
         columns="2"
-        minChildWidth="200px"
+        minChildWidth="160px"
         spacing="20px"
       >
         {posPermColors.map((com, index) => (

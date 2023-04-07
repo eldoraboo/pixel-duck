@@ -2,7 +2,7 @@ import "../App.css";
 import Duck from "./Duck";
 import React, { useState } from "react";
 import random from "lodash/random";
-import { SimpleGrid, Card, Button } from "@chakra-ui/react";
+import { SimpleGrid, Card, Button, Heading } from "@chakra-ui/react";
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -98,11 +98,13 @@ const Ducks = () => {
       >
         Randomize
       </Button>
+      <Heading id="ducks">
+        Meet the Ducks
+      </Heading>
       <SimpleGrid
-        id="ducks"
         align="center"
         width="100%"
-        columns="2"
+        p={4}
         minChildWidth="160px"
         spacing="20px"
       >

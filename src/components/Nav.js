@@ -16,9 +16,24 @@ const Nav = ({ onOpen, ref }) => {
 
   window.addEventListener("scroll", changeScroll);
 
+  const scrollToWTF = () => {
+    const WTFSection = document.querySelector("#wtf");
+    WTFSection.scrollIntoView({ behavior: "smooth" });
+  };
+
   const scrollToDucks = () => {
     const ducksSection = document.querySelector("#ducks");
     ducksSection.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToRoadmap = () => {
+    const roadmapSection = document.querySelector("#roadmap");
+    roadmapSection.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToTeam = () => {
+    const teamSection = document.querySelector("#team");
+    teamSection.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToBottom = () => {
@@ -40,16 +55,16 @@ const Nav = ({ onOpen, ref }) => {
     >
       <Flex alignItems="center">
         <Stack justify={"flex-end"} direction={"row"} h={6} spacing={5}>
-          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToBottom}>
+          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToWTF}>
             <Text fontSize="lg">WTF?</Text>
           </Link>
           <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToDucks}>
             <Text fontSize="lg">Ducks</Text>
           </Link>
-          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToBottom}>
+          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToRoadmap}>
             <Text fontSize="lg">Roadmap</Text>
           </Link>
-          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToBottom}>
+          <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToTeam}>
             <Text fontSize="lg">Team</Text>
           </Link>
           <Link _hover={{ color: "pink.600" }} mb="5" onClick={scrollToBottom}>

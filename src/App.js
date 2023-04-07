@@ -1,5 +1,5 @@
 import "./App.css";
-import CopySVGButton from "./svgbutton";
+import Duck from "./components/Duck";
 import React, { useState } from "react";
 import { ChromePicker } from "react-color";
 import random from "lodash/random";
@@ -18,6 +18,7 @@ import {
   Heading,
   useColorMode,
 } from "@chakra-ui/react";
+
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -173,100 +174,22 @@ const App = () => {
           </Popover>
         </CardBody>
       </Card>
+      {/* <Card boxShadow="lg" align="center" p={4}> */}
+      <SimpleGrid
+        align="center"
+        width="100%"
+        columns="2"
+        minChildWidth="200px"
+        spacing="20px"
+      >
+        {posPermColors.map((com, index) => (
+          <Card boxShadow="lg" align="center" p={4}>
+            <Duck com={com} index={index} />
+          </Card>
+        ))}
+      </SimpleGrid>
+      {/* </Card> */}
       <Card boxShadow="lg" align="center" p={4}>
-        <SimpleGrid
-          align="center"
-          width="100%"
-          minChildWidth="128px"
-          spacing="20px"
-        >
-          {posPermColors.map((com, index) => (
-            <Box>
-              <svg
-                key={index}
-                id="duck"
-                viewBox="0 0 128 128"
-                width="128"
-                height="128"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect x="0" y="0" width="128" height="128" fill={com.bgColor} />
-                <rect
-                  x="40"
-                  y="28"
-                  width="24"
-                  height="16"
-                  fill={com.hatColor}
-                />
-                <rect x="36" y="44" width="32" height="4" fill={com.hatColor} />
-                <rect x="40" y="48" width="24" height="4" fill={com.color} />
-                <rect x="40" y="52" width="24" height="4" fill={com.color} />
-                <rect x="48" y="52" width="4" height="4" fill={com.eyeColor} />
-                <rect x="36" y="56" width="4" height="4" fill={com.beakColor} />
-                <rect
-                  x="32"
-                  y="60"
-                  width="12"
-                  height="4"
-                  fill={com.beakColor}
-                />
-                <rect x="40" y="56" width="24" height="4" fill={com.color} />
-                <rect x="44" y="60" width="20" height="4" fill={com.color} />
-                <rect x="48" y="64" width="32" height="4" fill={com.color} />
-                <rect x="44" y="68" width="52" height="4" fill={com.color} />
-                <rect x="44" y="72" width="48" height="4" fill={com.color} />
-                <rect x="44" y="76" width="44" height="4" fill={com.color} />
-                <rect x="44" y="80" width="44" height="4" fill={com.color} />
-                <rect x="48" y="84" width="40" height="4" fill={com.color} />
-                <rect x="52" y="88" width="32" height="4" fill={com.color} />
-              </svg>
-              <CopySVGButton
-                svg={`<svg
-                key="${index}"
-                id="duck"
-                viewBox="0 0 128 128"
-                width="128"
-                height="128"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect x="0" y="0" width="128" height="128" fill="${com.bgColor}" />
-                <rect
-                  x="40"
-                  y="28"
-                  width="24"
-                  height="16"
-                  fill="${com.hatColor}"
-                />
-                <rect x="36" y="44" width="32" height="4" fill="${com.hatColor}" />
-                <rect x="40" y="48" width="24" height="4" fill="${com.color}" />
-                <rect x="40" y="52" width="24" height="4" fill="${com.color}" />
-                <rect x="48" y="52" width="4" height="4" fill="${com.eyeColor}" />
-                <rect x="36" y="56" width="4" height="4" fill="${com.beakColor}" />
-                <rect
-                  x="32"
-                  y="60"
-                  width="12"
-                  height="4"
-                  fill="${com.beakColor}"
-                />
-                <rect x="40" y="56" width="24" height="4" fill="${com.color}" />
-                <rect x="44" y="60" width="20" height="4" fill="${com.color}" />
-                <rect x="48" y="64" width="32" height="4" fill="${com.color}" />
-                <rect x="44" y="68" width="52" height="4" fill="${com.color}" />
-                <rect x="44" y="72" width="48" height="4" fill="${com.color}" />
-                <rect x="44" y="76" width="44" height="4" fill="${com.color}" />
-                <rect x="44" y="80" width="44" height="4" fill="${com.color}" />
-                <rect x="48" y="84" width="40" height="4" fill="${com.color}" />
-                <rect x="52" y="88" width="32" height="4" fill="${com.color}" />
-              </svg>`}
-              />
-            </Box>
-          ))}
-        </SimpleGrid>
-      </Card>
-      <Card boxShadow='lg' align="center" p={4}>
         <Text>Made with ♥ by Eldora</Text>
         <Text>
           Colors from{" "}

@@ -24,6 +24,12 @@ import eth from "../img/eth.svg";
 import CopySVGButton from "./SVGButton";
 import { useState, useEffect } from "react";
 
+const priceHash = (colors) => {
+  const concatenatedRGB = colors.map((color) => color.substring(1)).join("");
+  const hash = parseInt(concatenatedRGB, 16) % 1000;
+  return (hash / 1000).toFixed(3).replace(/^0\./, "0.");
+};
+
 const colorHash = (colors) => {
   const concatenatedRGB = colors.map((color) => color.substring(1)).join("");
   const hash = parseInt(concatenatedRGB, 16) % 10000;
@@ -63,7 +69,7 @@ const Duck = ({ com, index }) => {
 
   const ducksvg = ReactDOMServer.renderToStaticMarkup(svgCode);
   const colorNumber = colorHash(Object.values(com));
-  const randomPrice = Math.random().toFixed(3);
+  const randomPrice = priceHash(Object.values(com));
 
   const [hash, setHash] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
